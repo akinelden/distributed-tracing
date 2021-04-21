@@ -10,7 +10,7 @@ namespace WebApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InstantWeather : ControllerBase
+    public class DelayedWeather : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -19,7 +19,7 @@ namespace WebApp.Controllers
 
         private readonly ILogger<InstantWeather> _logger;
 
-        public InstantWeather(ILogger<InstantWeather> logger)
+        public DelayedWeather(ILogger<InstantWeather> logger)
         {
             _logger = logger;
         }
@@ -28,7 +28,7 @@ namespace WebApp.Controllers
         public async Task<string> Get()
         {
             var rng = new Random();
-            var res = await Startup.client.GetAsync(Startup.cppServer + "/instantweather");
+            var res = await Startup.client.GetAsync(Startup.cppServer + "/delayedweather");
             if (!res.IsSuccessStatusCode)
                 return "An error occurred";
             return await res.Content.ReadAsStringAsync();
